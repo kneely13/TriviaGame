@@ -1,8 +1,20 @@
+// function QuizQuesiton(question, choices, correctAnswer) {
+//     this.question = [
+//         new QuizQuestion("question", ["choices", "choices"], #),
+//         new QuizQuestion("question", ["choices", "choices"], #),
+//         new QuizQuestion("question", ["choices", "choices"], #),
+//     this.choices = choices,
+//     this.correctAnswer = correctAnswer}
+
+
+
+
+
 
 $(document).ready(function() {
     $('.card').show();
     $('.mainContainer').hide();
-    $('#timer').hide();
+    $('#timer').hide(run);
     $('.cardResults').hide();
     
     $('.btn').click(function(){
@@ -15,9 +27,11 @@ $(document).ready(function() {
         $('.card').show();
         $('.cardResults').hide();
         $('.mainContainer').hide();
-        // $('#timer').hide();
+        $('#timer').show(run);
         
-    });  
+    });
+    
+
 });
 
 
@@ -33,9 +47,9 @@ function run() {
 function stop(){
    
     clearInterval(intervalId);
-    $('.mainContainer').hide();
-        $('#timer').hide(); 
-        $('.cardResults').show();
+    // $('.mainContainer').hide();
+    //     $('#timer').hide(); 
+    //     $('.cardResults').show();
 
 }
 

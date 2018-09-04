@@ -1,13 +1,11 @@
-
     
-
 $(document).ready(function() {
-
-    
-    
     var intervalId;
     var secondsTotal;
-
+    var mainContainer = document.getElementsByClassName('.mainContainer');
+    var resultsContainer = document.getElementsByClassName('.results');
+    var submitButton = document.getElementById('submit');
+    
     $(".mainContainer").hide();
     $("#timer").hide();
     $(".cardResults").hide();
@@ -17,20 +15,73 @@ $(document).ready(function() {
         $("#timer").show(secondsTotal);
         $(".card").hide();
         $(".mainContainer").show();
-        run();
+        run(myQuiz);
+        
+    });
+
+    $("#submit").on("click", function() {
+        $(".mainContainer").hide();
+        $(".cardResults").show();
+        $(".card").hide();
+        $("#timer").hide();
     });
 
     $("#back-button").on("click", function() {
       $(".cardResults").hide();
       $(".card").show();
       $("#timer").hide();
-
     });
+
+
+    function myQuiz() {
+        var output = [];
+
+        theQuestions.forEach( (currentQuestion, questionNumber) => {
+
+            var answers=[];
+
+                for(letter in currentQuestion.answers){
+
+                    answers.push('<label> <intput type="radio" name="question${questionNumber}" value="${letter}"> ${letter} : ${currentQuestion.answers[letter]} </label>');
+                }
+
+                output.push(`<div class="question"> ${currentQuestion.question} </div> <div class="answers"> ${answers.join('')} </div>`);
+            }
+        );
+        
+
+        mainContainer.innerHTML = output.join('');
+    };
+
+    
+    function revealResult() {
+
+        var answerContainers= mainContainer.querySelectorALL('.answers');
+
+        var numCorrect = 0;
+
+        theQuestions.forEach( (currentQuestion, questionNumber) => {
+
+            var answerContainer = answerContainers[questionNumber];
+            var selector = 'input[name=question${questionNumber}]:checked' ;
+            var userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+            if (userAnswer === currentQuestion.correctAnswer){
+                numCorrect++;
+            }
+
+        });
+        cardResults.text=numCorrect +' /'+ theQuestions.length;
+        revealResult()
+    }
+    revealResult()
 
     function run() {
         secondsTotal = 59;
         $("#timer").text(secondsTotal);
+        
         intervalId = setInterval(decrement, 1000);
+    
     };
 
     function decrement() {
@@ -43,64 +94,9 @@ $(document).ready(function() {
             $(".mainContainer").hide();
             $("#timer").hide();
             $(".cardResults").show(quizQuestion);
-
-        }
-        else {
-            //questions shown with this here
-            var $el = $("#question");
-            $el.innerHTML= quizQuestion.getQuestionIndex().text;
-            for(var i=0; i < choices.length;i++){
-                var $el=$("#choices"+ i);
-                $el.innerHTML=choices[i];
-                guess("btn" + i, choices[i]);
-
-            }
-            showProgress();
         };
-
-
     };
 
-    function guess(id, guess) {
-        var $button = $("id").on("click" , function(){
-            quiz.guess(guess);
-            decrement();
-        });
-        
-    }
-
-    
-
-    function quizQuesiton(question, choices, correctAnswer) {
-        this.question = question;
-        this.choices = choices;
-        this.correctAnswer = correctAnswer;
-        // this.checkAnswer= function(){
-        //     return this.choices + this.correctAnswer;
-
-        //     if (this.choices[i]===this.correctAnswer){
-        //         correctAnswers++;
-        //         $(".cardResults-text").html(correctAnswers + '/10');
-        //     }
-        //     else{
-        //         correctAnswers--;
-        //         $(".cardResults-text").html(correctAnswers + '/10');
-        //     };
-        // };
-
-    } 
-    quizQuesiton();
-   
-   decrement();
-
-});
-
-var questions= [
-    new quizQuestion("question One is written here", ["choices", "choices"], 1 ),
-    new quizQuestion("question two is written here", ["choices", "choices"], 0),
-    new quizQuestion("question three is written here", ["choices", "choices"], 1)
-    ];
-
-    var options= new Quiz(questions);
+})
     
 

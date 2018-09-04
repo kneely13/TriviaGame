@@ -1,10 +1,27 @@
-    
-$(document).ready(function() {
     var intervalId;
     var secondsTotal;
-    var mainContainer = document.getElementsByClassName('.mainContainer');
-    var resultsContainer = document.getElementsByClassName('.results');
-    var submitButton = document.getElementById('submit');
+    var theQuestions = [
+        {
+            question: "What is 10/2?",
+            answers: {
+                a: '3',
+                b: '5',
+                c: '115'
+            },
+            correctAnswer: 'b'
+        },
+        {
+            question: "What is 30/3?",
+            answers: {
+                a: '3',
+                b: '5',
+                c: '10'
+            },
+            correctAnswer: 'c'
+        }
+    ];
+
+$(document).ready(function() {
     
     $(".mainContainer").hide();
     $("#timer").hide();
@@ -42,16 +59,17 @@ $(document).ready(function() {
 
                 for(letter in currentQuestion.answers){
 
-                    answers.push('<label> <intput type="radio" name="question${questionNumber}" value="${letter}"> ${letter} : ${currentQuestion.answers[letter]} </label>');
+                    answers.push('<label + '<intput ,type='radio', name='question${questionNumber}', value='${letter}'>' ${letter} : ${currentQuestion.answers[letter]} </label>');
                 }
 
-                output.push(`<div class="question"> ${currentQuestion.question} </div> <div class="answers"> ${answers.join('')} </div>`);
+                output.push(`<div class="question"> ${currentQuestion.question} </div>' +
+                 '<div class="answers"> ${answers.join('')} </div>`);
             }
-        );
+        )};
         
 
-        mainContainer.innerHTML = output.join('');
-    };
+        mainContainer.html = output.join('');
+    });
 
     
     function revealResult() {
@@ -95,8 +113,6 @@ $(document).ready(function() {
             $("#timer").hide();
             $(".cardResults").show(quizQuestion);
         };
-    };
-
-})
     
 
+}

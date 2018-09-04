@@ -2,7 +2,7 @@
     var secondsTotal;
     var theQuestions = [
         {
-            question: "What is 10/2?",
+            question: "First Question",
             answers: {
                 a: '3',
                 b: '5',
@@ -11,7 +11,7 @@
             correctAnswer: 'b'
         },
         {
-            question: "What is 30/3?",
+            question: "Last Question?",
             answers: {
                 a: '3',
                 b: '5',
@@ -33,7 +33,7 @@ $(document).ready(function() {
         $(".card").hide();
         $(".mainContainer").show();
         run(myQuiz);
-        
+        $('#question').text("question");
     });
 
     $("#submit").on("click", function() {
@@ -95,7 +95,7 @@ $(document).ready(function() {
     revealResult()
 
     function run() {
-        secondsTotal = 59;
+        secondsTotal = 59;  
         $("#timer").text(secondsTotal);
         
         intervalId = setInterval(decrement, 1000);

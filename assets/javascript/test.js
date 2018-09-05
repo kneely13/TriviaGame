@@ -18,7 +18,7 @@ $(document).ready(function () {
         $("#timer").show();
         $(".card").hide();
         $(".mainContainer").show();
-        // run();
+        run();
         $('#question').text("question");
         $('#question').text(theQuestions[0].question)
             addAnswers(theQuestions[0].answers);
@@ -43,6 +43,7 @@ $(document).ready(function () {
         var addAnswers = function(answerArray){
             for(var i=0;i<answerArray.length; i++){
                 $('#answers').append('<p id="answerBtn' + i + '">'+ answerArray[i] + '</p>')
+                $('#answers').append('<p input="radio" id="answerBtn' + i + '">'+ answerArray[i] + '</p>')
             }
     
         }
@@ -55,5 +56,26 @@ $(document).ready(function () {
                 console.log('incorrect');
             }   
         })
+
+        function run() {
+            secondsTotal = 59;  
+            $("#timer").text(secondsTotal);
+            
+            intervalId = setInterval(decrement, 1000);
+        
+        };
+    
+        function decrement() {
+            secondsTotal--;
+            $("#timer").text(secondsTotal);
+    
+            if (secondsTotal < 1) {
+                clearInterval(intervalId);
+                $(".card").hide();
+                $(".mainContainer").hide();
+                $("#timer").hide();
+                $(".cardResults").show(quizQuestion);
+            };
       
-})
+        }
+    })
